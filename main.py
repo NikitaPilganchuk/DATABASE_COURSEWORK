@@ -51,8 +51,6 @@ def append_data_to_db(data):
                     "INSERT INTO hhru VALUES(%s, %s, %s, %s)", (vacancy['company_name'], vacancy['vacancy_name'], vacancy['salary'], vacancy['url']))
     print('Данные добавлены в БД')
 
-append_data_to_db(get_vacancies(get_employers({'text': 'Python'})))
-
 
 
 

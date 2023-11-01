@@ -18,7 +18,8 @@ class DBMager:
             with conn.cursor() as cur:
                 cur.execute("SELECT company_name, COUNT(vacancy_name) FROM hhru GROUP BY DISTINCT company_name")
                 data = cur.fetchall()
-                print(data)
+                for vacancy in data:
+                    print(vacancy)
 
     def get_all_vacancies(self):
         '''
@@ -34,7 +35,8 @@ class DBMager:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM hhru")
                 data = cur.fetchall()
-                print(data)
+                for vacancy in data:
+                    print(vacancy)
 
     def get_avg_salary(self):
         '''
@@ -50,7 +52,8 @@ class DBMager:
             with conn.cursor() as cur:
                 cur.execute("SELECT ROUND(AVG(salary), 0) FROM hhru")
                 data = cur.fetchall()
-                print(data)
+                for vacancy in data:
+                    print(vacancy)
 
     def get_vacancies_with_higher_salary(self):
         '''
@@ -66,7 +69,8 @@ class DBMager:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM hhru WHERE salary > (SELECT AVG(salary) FROM hhru)")
                 data = cur.fetchall()
-                print(data)
+                for vacancy in data:
+                    print(vacancy)
 
     def get_vacancies_with_keyword(self, word):
         '''
@@ -83,4 +87,5 @@ class DBMager:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT * FROM hhru WHERE vacancy_name LIKE '%{word}%'")
                 data = cur.fetchall()
-                print(data)
+                for vacancy in data:
+                    print(vacancy)
