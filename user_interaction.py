@@ -1,9 +1,15 @@
+# Context from Function C:/Users/User/Desktop/DATABASE_COURSEWORK/main.py:get_vacancies
 from main import *
 from class_dbmanager import DBMager
 
 
 
 def user_interaction():
+    '''
+    Функция для взаимодействия пользователя
+    :return:
+    '''
+    create_table()
     print("В базе данных хранятся вакансии Python разработчика\nВыберите нужное действие:")
     user_input = input('''1 - получить список всех компаний и количества вакансий у каждой компании
     2 - получить список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию

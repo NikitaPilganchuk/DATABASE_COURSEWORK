@@ -1,4 +1,8 @@
 import psycopg2
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 class DBMager:
     '''
     Класс DBMager для работы с Базой данных
@@ -10,10 +14,10 @@ class DBMager:
         '''
 
         with psycopg2.connect(
-            host="localhost",
-            database="KURSACH",
-            user="postgres",
-            password='A5A4A3a2a1'
+            host=os.getenv('host'),
+            database=os.getenv('database'),
+            user=os.getenv('user'),
+            password=os.getenv('password')
         ) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT company_name, COUNT(vacancy_name) FROM hhru GROUP BY DISTINCT company_name")
@@ -27,10 +31,10 @@ class DBMager:
         :return:
         '''
         with psycopg2.connect(
-            host="localhost",
-            database="KURSACH",
-            user="postgres",
-            password='A5A4A3a2a1'
+            host=os.getenv('host'),
+            database=os.getenv('database'),
+            user=os.getenv('user'),
+            password=os.getenv('password')
         ) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM hhru")
@@ -44,10 +48,10 @@ class DBMager:
         :return:
         '''
         with psycopg2.connect(
-            host="localhost",
-            database="KURSACH",
-            user="postgres",
-            password='A5A4A3a2a1'
+            host=os.getenv('host'),
+            database=os.getenv('database'),
+            user=os.getenv('user'),
+            password=os.getenv('password')
         ) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT ROUND(AVG(salary), 0) FROM hhru")
@@ -61,10 +65,10 @@ class DBMager:
         :return:
         '''
         with psycopg2.connect(
-            host="localhost",
-            database="KURSACH",
-            user="postgres",
-            password='A5A4A3a2a1'
+            host=os.getenv('host'),
+            database=os.getenv('database'),
+            user=os.getenv('user'),
+            password=os.getenv('password')
         ) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM hhru WHERE salary > (SELECT AVG(salary) FROM hhru)")
@@ -79,10 +83,10 @@ class DBMager:
         :return:
         '''
         with psycopg2.connect(
-            host="localhost",
-            database="KURSACH",
-            user="postgres",
-            password='A5A4A3a2a1'
+            host=os.getenv('host'),
+            database=os.getenv('database'),
+            user=os.getenv('user'),
+            password=os.getenv('password')
         ) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT * FROM hhru WHERE vacancy_name LIKE '%{word}%'")

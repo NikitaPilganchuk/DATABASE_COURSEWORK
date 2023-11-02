@@ -1,7 +1,13 @@
+''' '''
 import requests
 import psycopg2
+from dotenv import load_dotenv
 import os
+
+
+load_dotenv()
 def get_employers(params):
+    ''' Получение списка всех компаний'''
     employers_id = []
     response = requests.get('https://api.hh.ru/vacancies', params=params)
     if response.status_code == 200:
@@ -14,6 +20,7 @@ def get_employers(params):
 
 
 def get_vacancies(employers_id):
+    ''' Получение всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию'''
     params = {'only_with_salary': True}
     data = []
     for employer in employers_id[:15]:
@@ -39,11 +46,12 @@ def get_vacancies(employers_id):
     print('Возвращаем данные')
     return data
 def append_data_to_db(data):
+    ''' Добавление данных в БД'''
     with psycopg2.connect(
-        host="localhost",
-        database="KURSACH",
-        user="postgres",
-        password='A5A4A3a2a1'
+        host=os.getenv('host'),
+        database=os.getenv('database'),
+        user=os.getenv('user'),
+        password=os.getenv('password')
     ) as conn:
         with conn.cursor() as cur:
             for vacancy in data:
@@ -53,4 +61,14 @@ def append_data_to_db(data):
 
 
 
-
+def create_table():
+    ''' Создание таблицы hhru в БД'''
+    with psycopg2.connect(
+        host=os.getenv('host'),
+        database=os.getenv('database'),
+        user=os.getenv('user'),
+        password=os.getenv('password')
+    ) as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE TABLE hhru (company_name VARCHAR(255), vacancy_name VARCHAR(255), salary INTEGER, url VARCHAR(255))")
+    print('Таблица создана')
