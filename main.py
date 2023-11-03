@@ -72,3 +72,15 @@ def create_table():
         with conn.cursor() as cur:
             cur.execute("CREATE TABLE hhru (company_name VARCHAR(255), vacancy_name VARCHAR(255), salary INTEGER, url VARCHAR(255))")
     print('Таблица создана')
+
+def delete_table():
+    ''' Удаление таблицы hhru из БД'''
+    with psycopg2.connect(
+        host=os.getenv('host'),
+        database=os.getenv('database'),
+        user=os.getenv('user'),
+        password=os.getenv('password')
+    ) as conn:
+        with conn.cursor() as cur:
+            cur.execute("DROP TABLE hhru")
+    print('Таблица удалена')
